@@ -79,6 +79,24 @@ unless node['tomcat']["truststore_file"].nil?
   node.set['tomcat']['java_options'] = java_options
 end
 
+bash "alfresco_tomcat_directories" do
+  user "root"
+  code <<-EOH
+    cd /usr/share/tomcat6
+    mkdir shared
+    mkdir shared/classes
+    mkdir shared/lib
+    EOH
+end
+
+cookbook_file "#{node['tomcat']['config_dir']}/catalina.properties" do
+  source "catalina.properties"
+end
+
+cookbook_file "#{node['tomcat']['config_dir']}/server.xml" do
+  source "server.xml"
+end
+
 case node["platform"]
 when "centos","redhat","fedora"
   template "/etc/sysconfig/tomcat#{node["tomcat"]["base_version"]}" do
