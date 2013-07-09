@@ -94,6 +94,13 @@
  secure="true" connectionTimeout="240000" truststoreFile="/opt/alfresco-4.0.2.9/alf_data/keystore/ssl.truststore" truststorePass="kT9X6oe68t" truststoreType="JCEKS"
                clientAuth="false" sslProtocol="TLS" allowUnsafeLegacyRenegotiation="true" maxSavePostSize="-1" />  
 
+    <Connector port="8443" protocol="org.apache.coyote.http11.Http11Protocol"
+      SSLEnabled="true" maxThreads="150" scheme="https"
+      keystoreFile="/var/lib/alfresco/keystore/ssl.keystore"
+      keystorePass="kT9X6oe68t" keystoreType="JCEKS" secure="true" connectionTimeout="240000"
+      truststoreFile="/var/lib/alfresco/keystore/ssl.truststore"
+      truststorePass="kT9X6oe68t" truststoreType="JCEKS" clientAuth="false" sslProtocol="TLS" maxSavePostSize="-1"/>
+
     <!-- An Engine represents the entry point (within Catalina) that processes
          every request.  The Engine implementation for Tomcat stand alone
          analyzes the HTTP headers included with the request, and passes them
