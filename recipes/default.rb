@@ -89,11 +89,27 @@ bash "alfresco_tomcat_directories" do
 end
 
 cookbook_file "#{node['tomcat']['config_dir']}/catalina.properties" do
+  backup false
   source "catalina.properties"
+  owner "tomcat"
+  group "tomcat"
+  mode 00644
 end
 
 cookbook_file "#{node['tomcat']['config_dir']}/server.xml" do
+  backup false
   source "server.xml"
+  owner "tomcat"
+  group "tomcat"
+  mode 00644
+end
+
+cookbook_file "#{node['tomcat']['config_dir']}/tomcat-users.xml" do
+  backup false
+  source "tomcat-users.xml"
+  owner "tomcat"
+  group "tomcat"
+  mode 00644
 end
 
 case node["platform"]
