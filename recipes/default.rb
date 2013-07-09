@@ -83,9 +83,8 @@ bash "alfresco_tomcat_directories" do
   user "root"
   code <<-EOH
     cd /usr/share/tomcat6
-    mkdir shared
-    mkdir shared/classes
-    mkdir shared/lib
+    mkdir -p shared/classes
+    mkdir -p shared/lib
     EOH
 end
 
