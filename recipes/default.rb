@@ -65,7 +65,8 @@ service "tomcat" do
   when "debian","ubuntu"
     supports :restart => true, :reload => false, :status => true
   end
-  action [:enable, :start]
+  # action [:enable, :start]
+  action :enable
 end
 
 node.set_unless['tomcat']['keystore_password'] = secure_password
@@ -119,7 +120,7 @@ when "centos","redhat","fedora"
     owner "root"
     group "root"
     mode "0644"
-    notifies :restart, "service[tomcat]"
+    # notifies :restart, "service[tomcat]"
   end
 else
   template "/etc/default/tomcat#{node["tomcat"]["base_version"]}" do
@@ -127,7 +128,7 @@ else
     owner "root"
     group "root"
     mode "0644"
-    notifies :restart, "service[tomcat]"
+    # notifies :restart, "service[tomcat]"
   end
 end
 
@@ -136,7 +137,7 @@ template "#{node["tomcat"]["config_dir"]}/server.xml" do
   owner "root"
   group "root"
   mode "0644"
-  notifies :restart, "service[tomcat]"
+  # notifies :restart, "service[tomcat]"
 end
 
 template "/etc/tomcat#{node['tomcat']['base_version']}/logging.properties" do
@@ -144,7 +145,7 @@ template "/etc/tomcat#{node['tomcat']['base_version']}/logging.properties" do
   owner "root"
   group "root"
   mode "0644"
-  notifies :restart, "service[tomcat]"
+  # notifies :restart, "service[tomcat]"
 end
 
 unless node['tomcat']["ssl_cert_file"].nil?
@@ -174,7 +175,7 @@ unless node['tomcat']["ssl_cert_file"].nil?
        -password pass:#{node['tomcat']['keystore_password']} \
        -out #{node['tomcat']['keystore_file']}
     EOH
-    notifies :restart, "service[tomcat]"
+    # notifies :restart, "service[tomcat]"
     creates "#{node['tomcat']['config_dir']}/#{node['tomcat']['keystore_file']}"
   end
 else
@@ -184,7 +185,7 @@ else
     umask 0007
     creates "#{node['tomcat']['config_dir']}/#{node['tomcat']['keystore_file']}"
     action :run
-    notifies :restart, "service[tomcat]"
+    # notifies :restart, "service[tomcat]"
   end
 end
 
